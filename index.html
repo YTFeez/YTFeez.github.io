@@ -126,64 +126,6 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* Étoiles filantes */
-        .shooting-star {
-            position: fixed;
-            width: 2px;
-            height: 2px;
-            z-index: 9999;
-            pointer-events: none;
-        }
-
-        .shooting-star::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 2px;
-            height: 2px;
-            background: white;
-            border-radius: 50%;
-            box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.9),
-                        0 0 20px 5px rgba(173, 216, 230, 0.7),
-                        0 0 30px 7px rgba(255, 255, 255, 0.5);
-        }
-
-        .shooting-star::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 200px;
-            height: 1px;
-            background: linear-gradient(to left, 
-                rgba(255, 255, 255, 0) 0%,
-                rgba(255, 255, 255, 0.1) 20%,
-                rgba(173, 216, 230, 0.4) 40%,
-                rgba(173, 216, 230, 0.7) 60%,
-                rgba(255, 255, 255, 0.9) 80%,
-                rgba(255, 255, 255, 1) 100%);
-            transform-origin: right center;
-            box-shadow: 0 0 4px rgba(173, 216, 230, 0.8);
-        }
-
-        @keyframes shootingStar {
-            0% {
-                transform: translate(0, 0) rotate(45deg);
-                opacity: 0;
-            }
-            10% {
-                opacity: 1;
-            }
-            90% {
-                opacity: 1;
-            }
-            100% {
-                transform: translate(-500px, 500px) rotate(45deg);
-                opacity: 0;
-            }
-        }
-
         /* Effet de lumières de Noël avec glow */
         .christmas-lights {
             position: fixed;
@@ -385,6 +327,8 @@
             position: relative;
             overflow: hidden;
             box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 20px rgba(173, 216, 230, 0.2);
+            display: flex;
+            flex-direction: column;
         }
 
         .item-card::before {
@@ -484,6 +428,29 @@
             text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
         }
 
+        .item-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 10px;
+            border: 2px solid rgba(173, 216, 230, 0.3);
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .item-card:hover .item-image {
+            transform: scale(1.05);
+            border-color: #ffd700;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
+        }
+
         .item-link {
             display: inline-block;
             background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
@@ -494,6 +461,8 @@
             font-weight: 600;
             transition: all 0.3s ease;
             box-shadow: 0 0 20px rgba(196,30,58,0.6), 0 4px 15px rgba(196,30,58,0.4);
+            flex-grow: 1;
+            text-align: center;
         }
 
         .item-link:hover {
@@ -581,6 +550,15 @@
             .list-header h2 {
                 font-size: 1.8em;
             }
+
+            .item-bottom {
+                flex-direction: column-reverse;
+            }
+
+            .item-image {
+                width: 100%;
+                height: 150px;
+            }
         }
 
         .page {
@@ -642,56 +620,82 @@
                         <div class="item-card">
                             <div class="item-name">Casque Razer Blackshark V2 X</div>
                             <div class="item-price">41€</div>
-                            <a href="https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" class="item-link" target="_blank">🛒 Acheter</a>
-                            <img src="casque.jpg" alt="Casque Razer" style="width: 100%; height: 200px; object-fit: cover; border-radius: 10px; margin-bottom: 15px; border: 2px solid rgba(173, 216, 230, 0.3);">
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="casque.jpg" alt="Casque Razer" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card">
                             <div class="item-name">Cable Display Port</div>
                             <div class="item-price">10€</div>
-                            <a href="https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="cable.jpg" alt="Cable Display Port" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card">
                             <div class="item-name">Bras Micro + Micro</div>
                             <div class="item-price">85€</div>
-                            <a href="https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="micro.jpg" alt="Bras Micro" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card">
                             <div class="item-name">Adaptateur Ecran</div>
                             <div class="item-price">30€</div>
-                            <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="adaptateur.jpg" alt="Adaptateur Ecran" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card">
                             <div class="item-name">Bras d'Ecran Double</div>
                             <div class="item-price">25€</div>
-                            <a href="https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="bras-ecran.jpg" alt="Bras Ecran" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card">
                             <div class="item-name">Clavier</div>
                             <div class="item-price">60€</div>
-                            <a href="https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="clavier.jpg" alt="Clavier" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card optional">
                             <div class="item-name">Touches clavier</div>
                             <div class="item-price">13€</div>
-                            <a href="https://www.amazon.fr/Touches-R%C3%A9sistant-Conception-Ergonomique-M%C3%A9canique/dp/B09TK57SZS/" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/Touches-R%C3%A9sistant-Conception-Ergonomique-M%C3%A9canique/dp/B09TK57SZS/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="touches.jpg" alt="Touches clavier" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card optional">
                             <div class="item-name">Barrette de RAM</div>
                             <div class="item-price">110€</div>
-                            <a href="https://www.amazon.fr/M%C3%A9moire-3200MHz-Wlizedle-PC4-25600-Ordinateur/dp/B0CS2PGTMH/" class="item-link" target="_blank">🛒 Acheter</a>
+                            <div class="item-bottom">
+                                <a href="https://www.amazon.fr/M%C3%A9moire-3200MHz-Wlizedle-PC4-25600-Ordinateur/dp/B0CS2PGTMH/" class="item-link" target="_blank">🛒 Acheter</a>
+                                <img src="ram.jpg" alt="RAM" class="item-image">
+                            </div>
                         </div>
 
                         <div class="item-card electronics">
                             <div class="item-name">Matos électronique (outils ou composants)</div>
                             <div class="item-price">???€</div>
                             <span class="item-note">💡 À voir selon vos envies</span>
+                            <div class="item-bottom">
+                                <img src="electronique.jpg" alt="Matos électronique" class="item-image" style="margin-top: 15px;">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -748,7 +752,6 @@
             document.getElementById(pageId).classList.add('active');
             tab.classList.add('active');
 
-            // Si on ouvre la page Noël, activer par défaut la liste d'Aronne
             if (pageId === 'noel') {
                 document.getElementById('aronne').classList.add('active');
                 document.querySelectorAll('.sub-tab').forEach(st => st.classList.remove('active'));
@@ -769,7 +772,6 @@
             event.target.classList.add('active');
         }
 
-        // Création des flocons de neige qui tombent
         function createSnowflake() {
             const snowflake = document.createElement('div');
             snowflake.classList.add('snowflake');
@@ -787,47 +789,8 @@
             }, duration * 1000);
         }
 
-        // Créer des flocons régulièrement
         setInterval(createSnowflake, 150);
 
-        // Créer des étoiles filantes aléatoirement
-        function createShootingStar() {
-            const star = document.createElement('div');
-            star.classList.add('shooting-star');
-            
-            // Position aléatoire dans la partie haute droite de l'écran
-            const startX = Math.random() * window.innerWidth * 0.5 + window.innerWidth * 0.3;
-            const startY = Math.random() * (window.innerHeight * 0.3);
-            
-            star.style.left = startX + 'px';
-            star.style.top = startY + 'px';
-            
-            // Durée variable pour plus de naturel (plus lent)
-            const duration = Math.random() * 1 + 1.5;
-            star.style.animation = `shootingStar ${duration}s ease-in forwards`;
-            
-            document.body.appendChild(star);
-
-            setTimeout(() => {
-                star.remove();
-            }, duration * 1000);
-        }
-
-        // Créer une étoile filante toutes les 4-10 secondes
-        function scheduleShootingStar() {
-            const delay = Math.random() * 6000 + 4000;
-            setTimeout(() => {
-                createShootingStar();
-                scheduleShootingStar();
-            }, delay);
-        }
-
-        scheduleShootingStar();
-        
-        // Créer une première étoile rapidement
-        setTimeout(createShootingStar, 2000);
-
-        // Créer des étoiles scintillantes
         function createStars() {
             const count = 50;
             for (let i = 0; i < count; i++) {
@@ -843,7 +806,6 @@
 
         createStars();
 
-        // Créer des stalactites de glace en haut
         function createIcicles() {
             const count = Math.floor(window.innerWidth / 60);
             for (let i = 0; i < count; i++) {
@@ -859,7 +821,6 @@
 
         createIcicles();
 
-        // Recréer les stalactites lors du redimensionnement
         window.addEventListener('resize', () => {
             document.querySelectorAll('.icicle').forEach(el => el.remove());
             createIcicles();
@@ -867,6 +828,3 @@
     </script>
 </body>
 </html>
-
-
-

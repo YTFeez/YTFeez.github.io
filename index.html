@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mes Listes de Cadeaux 🎁</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a1f2e 0%, #1a3a4a 50%, #2d0a0a 100%);
+            min-height: 100vh;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Effet de flocons qui tombent */
+        .snowflake {
+            position: fixed;
+            top: -10px;
+            z-index: 9999;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.2em;
+            user-select: none;
+            pointer-events: none;
+            animation: snowfall linear forwards;
+        }
+
+        @keyframes snowfall {
+            0% {
+                transform: translateY(-10px);
+            }
+            100% {
+                transform: translateY(100vh);
+            }
+        }
+
+        /* Icicles (stalactites de glace) */
+        .icicle {
+            position: fixed;
+            top: 0;
+            width: 0;
+            height: 0;
+            border-left: 8px solid transparent;
+            border-right: 8px solid transparent;
+            border-top: 40px solid rgba(173, 216, 230, 0.7);
+            filter: drop-shadow(0 0 10px rgba(173, 216, 230, 0.8));
+            z-index: 9998;
+            pointer-events: none;
+            animation: icicleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes icicleGlow {
+            0%, 100% { filter: drop-shadow(0 0 10px rgba(173, 216, 230, 0.8)); }
+            50% { filter: drop-shadow(0 0 20px rgba(173, 216, 230, 1)); }
+        }
+
+        /* Effet de givre sur les bords */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at top left, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at top right, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(173, 216, 230, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(173, 216, 230, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                radial-gradient(ellipse at top left, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at top right, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom left, rgba(173, 216, 230, 0.1) 0%, transparent 50%),
+                radial-gradient(ellipse at bottom right, rgba(173, 216, 230, 0.1) 0%, transparent 50%);
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Aurores boréales en arrière-plan */
+        .aurora {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            opacity: 0.3;
+            z-index: 0;
+            pointer-events: none;
+            background: linear-gradient(45deg, 
+                transparent 0%, 
+                rgba(0, 255, 127, 0.1) 25%, 
+                rgba(64, 224, 208, 0.1) 50%, 
+                rgba(138, 43, 226, 0.1) 75%, 
+                transparent 100%);
+            animation: auroraMove 20s ease-in-out infinite;
+        }
+
+        @keyframes auroraMove {
+            0%, 100% {
+                transform: translateX(-10%) skewX(-5deg);
+                opacity: 0.2;
+            }
+            50% {
+                transform: translateX(10%) skewX(5deg);
+                opacity: 0.4;
+            }
+        }
+
+        /* Étoiles scintillantes */
+        .star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            z-index: 0;
+            pointer-events: none;
+            animation: twinkle ease-in-out infinite;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.8);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.3; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.5); }
+        }
+
+        }
+
+        .shooting-star::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 2px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.9),
+                        0 0 20px 5px rgba(173, 216, 230, 0.7),
+                        0 0 30px 7px rgba(255, 255, 255, 0.5);
+        }
+
+        .shooting-star::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 200px;
+            height: 1px;
+            background: linear-gradient(to left, 
+                rgba(255, 255, 255, 0) 0%,
+                rgba(255, 255, 255, 0.1) 20%,
+                rgba(173, 216, 230, 0.4) 40%,
+                rgba(173, 216, 230, 0.7) 60%,
+                rgba(255, 255, 255, 0.9) 80%,
+                rgba(255, 255, 255, 1) 100%);
+            transform-origin: right center;
+            box-shadow: 0 0 4px rgba(173, 216, 230, 0.8);
+        }
+
+        @keyframes shootingStar {
+            0% {
+                transform: translate(0, 0) rotate(45deg);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translate(-500px, 500px) rotate(45deg);
+                opacity: 0;
+            }
+        }
+
+        /* Effet de lumières de Noël avec glow */
+        .christmas-lights {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 30px;
+            display: flex;
+            justify-content: space-around;
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        .light {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            animation: glow 2s ease-in-out infinite;
+        }
+
+        .light:nth-child(odd) { 
+            background: #ff4444; 
+            box-shadow: 0 0 20px #ff4444, 0 0 40px #ff4444;
+        }
+        .light:nth-child(even) { 
+            background: #44ff44; 
+            box-shadow: 0 0 20px #44ff44, 0 0 40px #44ff44;
+        }
+
+        .light:nth-child(1) { animation-delay: 0s; }
+        .light:nth-child(2) { animation-delay: 0.4s; }
+        .light:nth-child(3) { animation-delay: 0.8s; }
+        .light:nth-child(4) { animation-delay: 1.2s; }
+        .light:nth-child(5) { animation-delay: 1.6s; }
+        .light:nth-child(6) { animation-delay: 2s; }
+        .light:nth-child(7) { animation-delay: 2.4s; }
+
+        @keyframes glow {
+            0%, 100% { 
+                opacity: 0.6; 
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 1; 
+                transform: scale(1.2);
+            }
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 2;
+        }
+
+        header {
+            text-align: center;
+            color: white;
+            margin-bottom: 40px;
+            animation: fadeInDown 0.8s ease;
+            text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 50px rgba(173, 216, 230, 0.6);
+        }
+
+        header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(173, 216, 230, 0.7);
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .tabs {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+            animation: fadeIn 1s ease;
+        }
+
+        .tab {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(173, 216, 230, 0.5);
+            padding: 15px 30px;
+            border-radius: 15px;
+            color: white;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            box-shadow: 0 0 20px rgba(173, 216, 230, 0.3);
+        }
+
+        .tab:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+            box-shadow: 0 0 30px rgba(173, 216, 230, 0.6), 0 5px 25px rgba(255,215,0,0.4);
+        }
+
+        .tab.active {
+            background: linear-gradient(135deg, #c41e3a 0%, #165b33 100%);
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 0 40px rgba(196,30,58,0.8), 0 0 60px rgba(22,91,51,0.6);
+            border-color: rgba(255, 215, 0, 0.8);
+        }
+
+        .tab.locked {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .tab.locked::after {
+            content: '🔒';
+            margin-left: 8px;
+        }
+
+        .content {
+            background: rgba(20, 30, 40, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(173, 216, 230, 0.3);
+            animation: fadeInUp 0.8s ease;
+            border: 2px solid rgba(173, 216, 230, 0.4);
+        }
+
+        .list-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .list-header h2 {
+            color: #ff6b6b;
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            text-shadow: 0 0 25px rgba(255, 107, 107, 0.8), 0 0 50px rgba(255, 107, 107, 0.5);
+        }
+
+        .list-header .total {
+            font-size: 1.5em;
+            color: #4ecdc4;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+        }
+
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+
+        .item-card {
+            background: rgba(30, 45, 60, 0.9);
+            border-radius: 15px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(173, 216, 230, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 20px rgba(173, 216, 230, 0.2);
+        }
+
+        .item-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, 
+                #c41e3a 0%, 
+                #ff6b6b 10%,
+                #ffd700 20%, 
+                #ffed4e 30%,
+                #165b33 40%, 
+                #4ecdc4 50%,
+                #165b33 60%,
+                #ffed4e 70%,
+                #ffd700 80%,
+                #ff6b6b 90%,
+                #c41e3a 100%);
+            background-size: 300% 100%;
+            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
+            animation: colorSlide 8s ease-in-out infinite;
+        }
+
+        @keyframes colorSlide {
+            0% {
+                background-position: 0% 0%;
+            }
+            50% {
+                background-position: 100% 0%;
+            }
+            100% {
+                background-position: 0% 0%;
+            }
+        }
+
+        .item-card::after {
+            content: '❄️';
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 1.5em;
+            opacity: 0.3;
+            filter: drop-shadow(0 0 5px rgba(173, 216, 230, 0.8));
+        }
+
+        .item-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 30px rgba(196,30,58,0.5), 0 0 40px rgba(173, 216, 230, 0.6);
+            border-color: #ffd700;
+        }
+
+        .item-card.optional {
+            opacity: 0.90;
+            border: 2px dashed rgba(255, 215, 0, 0.6);
+        }
+
+        .item-card.optional::after {
+            content: '✨ Optionnel';
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #1a1a1a;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75em;
+            font-weight: bold;
+            box-shadow: 0 0 20px rgba(255,215,0,0.8);
+        }
+
+        .item-card.electronics {
+            background: rgba(20, 60, 40, 0.9);
+            border: 2px solid rgba(22, 91, 51, 0.6);
+        }
+
+        .item-card.electronics::after {
+            content: '🎄';
+        }
+
+        .item-name {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #e0e0e0;
+            margin-bottom: 15px;
+            line-height: 1.4;
+            text-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
+        }
+
+        .item-price {
+            font-size: 2em;
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 15px;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .item-link {
+            display: inline-block;
+            background: linear-gradient(135deg, #c41e3a 0%, #8b0000 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(196,30,58,0.6), 0 4px 15px rgba(196,30,58,0.4);
+        }
+
+        .item-link:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(196,30,58,0.9), 0 6px 25px rgba(255,215,0,0.5);
+            background: linear-gradient(135deg, #d4243d 0%, #a00000 100%);
+        }
+
+        .item-note {
+            display: block;
+            margin-top: 10px;
+            color: #4ecdc4;
+            font-style: italic;
+            font-size: 0.95em;
+            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
+        }
+
+        .coming-soon {
+            text-align: center;
+            padding: 60px 20px;
+            color: #888;
+        }
+
+        .coming-soon h3 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            color: #ff6b6b;
+            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
+        }
+
+        .coming-soon p {
+            font-size: 1.2em;
+        }
+
+        .locked-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 10px rgba(173, 216, 230, 0.5));
+        }
+
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2em;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .items-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .list-header h2 {
+                font-size: 1.8em;
+            }
+        }
+
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="aurora"></div>
+    
+    <div class="christmas-lights">
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+        <div class="light"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>🎄 Mes Listes de Cadeaux 🎁</h1>
+            <p>Choisissez une liste pour découvrir mes souhaits</p>
+        </header>
+
+        <div class="tabs">
+            <div class="tab active" onclick="showPage('noel')">🎄 Liste de Noël</div>
+            <div class="tab locked" onclick="showPage('anniv')">🎂 Liste d'Anniversaire</div>
+            <div class="tab locked" onclick="showPage('autres')">🎈 Autres Occasions</div>
+        </div>
+
+        <div class="content">
+            <div id="noel" class="page active">
+                <div class="list-header">
+                    <h2>🎄 Liste de Noël 2024</h2>
+                    <div class="total">Total : 379€</div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item-card">
+                        <div class="item-name">Casque Razer Blackshark V2 X</div>
+                        <div class="item-price">49€</div>
+                        <a href="https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-name">Cable Display Port</div>
+                        <div class="item-price">10€</div>
+                        <a href="https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-name">Bras Micro + Micro</div>
+                        <div class="item-price">85€</div>
+                        <a href="https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-name">Adaptateur Ecran</div>
+                        <div class="item-price">30€</div>
+                        <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-name">Bras d'Ecran</div>
+                        <div class="item-price">23€</div>
+                        <a href="https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card">
+                        <div class="item-name">Clavier</div>
+                        <div class="item-price">57€</div>
+                        <a href="https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card optional">
+                        <div class="item-name">Touches clavier</div>
+                        <div class="item-price">13€</div>
+                        <a href="https://www.amazon.fr/Touches-R%C3%A9sistant-Conception-Ergonomique-M%C3%A9canique/dp/B09TK57SZS/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card optional">
+                        <div class="item-name">Barrette de RAM</div>
+                        <div class="item-price">84€</div>
+                        <a href="https://www.amazon.fr/M%C3%A9moire-3200MHz-Wlizedle-PC4-25600-Ordinateur/dp/B0CS2PGTMH/" class="item-link" target="_blank">🛒 Acheter</a>
+                    </div>
+
+                    <div class="item-card electronics">
+                        <div class="item-name">Matos électronique (outils ou composants)</div>
+                        <div class="item-price">???€</div>
+                        <span class="item-note">💡 À voir selon vos envies</span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="anniv" class="page">
+                <div class="coming-soon">
+                    <div class="locked-icon">🔒</div>
+                    <h3>Liste d'Anniversaire</h3>
+                    <p>Cette liste sera bientôt disponible !</p>
+                </div>
+            </div>
+
+            <div id="autres" class="page">
+                <div class="coming-soon">
+                    <div class="locked-icon">🔒</div>
+                    <h3>Autres Occasions</h3>
+                    <p>Cette liste sera bientôt disponible !</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showPage(pageId) {
+            const tab = event.target;
+            if (tab.classList.contains('locked')) {
+                return;
+            }
+
+            document.querySelectorAll('.page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            document.querySelectorAll('.tab').forEach(t => {
+                t.classList.remove('active');
+            });
+
+            document.getElementById(pageId).classList.add('active');
+            tab.classList.add('active');
+        }
+
+        // Création des flocons de neige qui tombent
+        function createSnowflake() {
+            const snowflake = document.createElement('div');
+            snowflake.classList.add('snowflake');
+            snowflake.innerHTML = '❄';
+            snowflake.style.left = Math.random() * window.innerWidth + 'px';
+            const duration = Math.random() * 3 + 4;
+            snowflake.style.animationDuration = duration + 's';
+            snowflake.style.opacity = Math.random() * 0.6 + 0.4;
+            snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
+            
+            document.body.appendChild(snowflake);
+
+            setTimeout(() => {
+                snowflake.remove();
+            }, duration * 1000);
+        }
+
+        // Créer des flocons régulièrement
+        setInterval(createSnowflake, 150);
+
+        // Créer des étoiles filantes aléatoirement
+        function createShootingStar() {
+            const star = document.createElement('div');
+            star.classList.add('shooting-star');
+            
+            // Position aléatoire dans la partie haute droite de l'écran
+            const startX = Math.random() * window.innerWidth * 0.5 + window.innerWidth * 0.3;
+            const startY = Math.random() * (window.innerHeight * 0.3);
+            
+            star.style.left = startX + 'px';
+            star.style.top = startY + 'px';
+            
+            // Durée variable pour plus de naturel (plus lent)
+            const duration = Math.random() * 1 + 1.5;
+            star.style.animation = `shootingStar ${duration}s ease-in forwards`;
+            
+            document.body.appendChild(star);
+
+            setTimeout(() => {
+                star.remove();
+            }, duration * 1000);
+        }
+
+        
+        // Créer une première étoile rapidement
+        setTimeout(createShootingStar, 2000);
+
+        // Créer des étoiles scintillantes
+        function createStars() {
+            const count = 50;
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.classList.add('star');
+                star.style.left = Math.random() * 100 + '%';
+                star.style.top = Math.random() * 100 + '%';
+                star.style.animationDuration = (Math.random() * 3 + 2) + 's';
+                star.style.animationDelay = Math.random() * 3 + 's';
+                document.body.appendChild(star);
+            }
+        }
+
+        createStars();
+
+        // Créer des stalactites de glace en haut
+        function createIcicles() {
+            const count = Math.floor(window.innerWidth / 60);
+            for (let i = 0; i < count; i++) {
+                const icicle = document.createElement('div');
+                icicle.classList.add('icicle');
+                icicle.style.left = (i * 60 + Math.random() * 20) + 'px';
+                icicle.style.animationDelay = Math.random() * 3 + 's';
+                const height = Math.random() * 30 + 30;
+                icicle.style.borderTopWidth = height + 'px';
+                document.body.appendChild(icicle);
+            }
+        }
+
+        createIcicles();
+
+        // Recréer les stalactites lors du redimensionnement
+        window.addEventListener('resize', () => {
+            document.querySelectorAll('.icicle').forEach(el => el.remove());
+            createIcicles();
+        });
+    </script>
+</body>
+</html>

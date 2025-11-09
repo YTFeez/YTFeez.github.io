@@ -78,22 +78,6 @@
             z-index: 1;
         }
 
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: 
-                radial-gradient(ellipse at top left, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at top right, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom left, rgba(173, 216, 230, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(173, 216, 230, 0.1) 0%, transparent 50%);
-            pointer-events: none;
-            z-index: 1;
-        }
-
         /* Aurores boréales en arrière-plan */
         .aurora {
             position: fixed;
@@ -142,6 +126,13 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
+        /* Étoiles filantes */
+        .shooting-star {
+            position: fixed;
+            width: 2px;
+            height: 2px;
+            z-index: 9999;
+            pointer-events: none;
         }
 
         .shooting-star::before {
@@ -312,6 +303,42 @@
         .tab.locked::after {
             content: '🔒';
             margin-left: 8px;
+        }
+
+        /* Sous-onglets pour les listes de Noël */
+        .sub-tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            justify-content: center;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease;
+        }
+
+        .sub-tab {
+            background: rgba(196, 30, 58, 0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(196, 30, 58, 0.4);
+            padding: 10px 25px;
+            border-radius: 12px;
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(196, 30, 58, 0.3);
+        }
+
+        .sub-tab:hover {
+            background: rgba(196, 30, 58, 0.3);
+            transform: translateY(-2px);
+            box-shadow: 0 0 25px rgba(196, 30, 58, 0.5);
+        }
+
+        .sub-tab.active {
+            background: linear-gradient(135deg, #c41e3a 0%, #ff6b6b 100%);
+            font-weight: bold;
+            box-shadow: 0 0 30px rgba(196, 30, 58, 0.7);
+            border-color: rgba(255, 215, 0, 0.6);
         }
 
         .content {
@@ -563,6 +590,14 @@
         .page.active {
             display: block;
         }
+
+        .sub-page {
+            display: none;
+        }
+
+        .sub-page.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -580,7 +615,7 @@
 
     <div class="container">
         <header>
-            <h1>🎄Noël 🎁</h1>
+            <h1>🎄 Noël 🎁</h1>
             <p>Choisissez une liste pour découvrir mes souhaits</p>
         </header>
 
@@ -592,64 +627,86 @@
 
         <div class="content">
             <div id="noel" class="page active">
-                <div class="list-header">
-                    <h2>🎄 Liste de Noël 2025</h2>
-                    <div class="total">Total : 374€</div>
+                <div class="sub-tabs">
+                    <div class="sub-tab active" onclick="showSubPage('aronne')">🎅 Liste d'Aronne</div>
+                    <div class="sub-tab" onclick="showSubPage('gianni')">🎁 Liste de Gianni</div>
                 </div>
 
-                <div class="items-grid">
-                    <div class="item-card">
-                        <div class="item-name">Casque Razer Blackshark V2 X</div>
-                        <div class="item-price">41€</div>
-                        <a href="https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" class="item-link" target="_blank">🛒 Acheter</a>
+                <div id="aronne" class="sub-page active">
+                    <div class="list-header">
+                        <h2>🎄 Liste de Noël d'Aronne 2025</h2>
+                        <div class="total">Total : 374€</div>
                     </div>
 
-                    <div class="item-card">
-                        <div class="item-name">Cable Display Port</div>
-                        <div class="item-price">10€</div>
-                        <a href="https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" class="item-link" target="_blank">🛒 Acheter</a>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <div class="item-name">Casque Razer Blackshark V2 X</div>
+                            <div class="item-price">41€</div>
+                            <a href="https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card">
+                            <div class="item-name">Cable Display Port</div>
+                            <div class="item-price">10€</div>
+                            <a href="https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card">
+                            <div class="item-name">Bras Micro + Micro</div>
+                            <div class="item-price">85€</div>
+                            <a href="https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card">
+                            <div class="item-name">Adaptateur Ecran</div>
+                            <div class="item-price">30€</div>
+                            <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card">
+                            <div class="item-name">Bras d'Ecran Double</div>
+                            <div class="item-price">25€</div>
+                            <a href="https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card">
+                            <div class="item-name">Clavier</div>
+                            <div class="item-price">60€</div>
+                            <a href="https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card optional">
+                            <div class="item-name">Touches clavier</div>
+                            <div class="item-price">13€</div>
+                            <a href="https://www.amazon.fr/Touches-R%C3%A9sistant-Conception-Ergonomique-M%C3%A9canique/dp/B09TK57SZS/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card optional">
+                            <div class="item-name">Barrette de RAM</div>
+                            <div class="item-price">110€</div>
+                            <a href="https://www.amazon.fr/M%C3%A9moire-3200MHz-Wlizedle-PC4-25600-Ordinateur/dp/B0CS2PGTMH/" class="item-link" target="_blank">🛒 Acheter</a>
+                        </div>
+
+                        <div class="item-card electronics">
+                            <div class="item-name">Matos électronique (outils ou composants)</div>
+                            <div class="item-price">???€</div>
+                            <span class="item-note">💡 À voir selon vos envies</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="gianni" class="sub-page">
+                    <div class="list-header">
+                        <h2>🎄 Liste de Noël de Gianni 2025</h2>
+                        <div class="total">Total : À définir</div>
                     </div>
 
-                    <div class="item-card">
-                        <div class="item-name">Bras Micro + Micro</div>
-                        <div class="item-price">85€</div>
-                        <a href="https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" class="item-link" target="_blank">🛒 Acheter</a>
-                    </div>
-
-                    <div class="item-card">
-                        <div class="item-name">Adaptateur Ecran</div>
-                        <div class="item-price">30€</div>
-                        <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
-                    </div>
-
-                    <div class="item-card">
-                        <div class="item-name">Bras d'Ecran Double</div>
-                        <div class="item-price">25€</div>
-                        <a href="https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" class="item-link" target="_blank">🛒 Acheter</a>
-                    </div>
-
-                    <div class="item-card">
-                        <div class="item-name">Clavier</div>
-                        <div class="item-price">60€</div>
-                        <a href="https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" class="item-link" target="_blank">🛒 Acheter</a>
-                    </div>
-
-                    <div class="item-card optional">
-                        <div class="item-name">Touches clavier</div>
-                        <div class="item-price">13€</div>
-                        <a href="https://www.amazon.fr/Touches-R%C3%A9sistant-Conception-Ergonomique-M%C3%A9canique/dp/B09TK57SZS/" class="item-link" target="_blank">🛒 Acheter</a>
-                    </div>
-
-                    <div class="item-card optional">
-                        <div class="item-name">Barrette de RAM</div>
-                        <div class="item-price">110€</div>
-                        <a href="https://www.amazon.fr/M%C3%A9moire-3200MHz-Wlizedle-PC4-25600-Ordinateur/dp/B0CS2PGTMH/" class="item-link" target="_blank">🛒 Acheter</a>
-                    </div>
-
-                    <div class="item-card electronics">
-                        <div class="item-name">Matos électronique (outils ou composants)</div>
-                        <div class="item-price">???€</div>
-                        <span class="item-note">💡 À voir selon vos envies</span>
+                    <div class="items-grid">
+                        <div class="item-card">
+                            <div class="item-name">Article à ajouter</div>
+                            <div class="item-price">??€</div>
+                            <span class="item-note">🎁 Liste en cours de création...</span>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -689,6 +746,26 @@
 
             document.getElementById(pageId).classList.add('active');
             tab.classList.add('active');
+
+            // Si on ouvre la page Noël, activer par défaut la liste d'Aronne
+            if (pageId === 'noel') {
+                document.getElementById('aronne').classList.add('active');
+                document.querySelectorAll('.sub-tab').forEach(st => st.classList.remove('active'));
+                document.querySelectorAll('.sub-tab')[0].classList.add('active');
+            }
+        }
+
+        function showSubPage(subPageId) {
+            document.querySelectorAll('.sub-page').forEach(page => {
+                page.classList.remove('active');
+            });
+
+            document.querySelectorAll('.sub-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+
+            document.getElementById(subPageId).classList.add('active');
+            event.target.classList.add('active');
         }
 
         // Création des flocons de neige qui tombent
@@ -735,6 +812,16 @@
             }, duration * 1000);
         }
 
+        // Créer une étoile filante toutes les 4-10 secondes
+        function scheduleShootingStar() {
+            const delay = Math.random() * 6000 + 4000;
+            setTimeout(() => {
+                createShootingStar();
+                scheduleShootingStar();
+            }, delay);
+        }
+
+        scheduleShootingStar();
         
         // Créer une première étoile rapidement
         setTimeout(createShootingStar, 2000);
@@ -778,9 +865,4 @@
         });
     </script>
 </body>
-
 </html>
-
-
-
-

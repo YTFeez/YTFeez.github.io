@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Effet de flocons qui tombent */
         .snowflake {
             position: fixed;
             top: -10px;
@@ -33,15 +32,10 @@
         }
 
         @keyframes snowfall {
-            0% {
-                transform: translateY(-10px);
-            }
-            100% {
-                transform: translateY(100vh);
-            }
+            0% { transform: translateY(-10px); }
+            100% { transform: translateY(100vh); }
         }
 
-        /* Icicles (stalactites de glace) */
         .icicle {
             position: fixed;
             top: 0;
@@ -61,7 +55,6 @@
             50% { filter: drop-shadow(0 0 20px rgba(173, 216, 230, 1)); }
         }
 
-        /* Effet de givre sur les bords */
         body::before {
             content: '';
             position: fixed;
@@ -71,14 +64,11 @@
             bottom: 0;
             background: 
                 radial-gradient(ellipse at top left, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at top right, rgba(173, 216, 230, 0.15) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom left, rgba(173, 216, 230, 0.1) 0%, transparent 50%),
-                radial-gradient(ellipse at bottom right, rgba(173, 216, 230, 0.1) 0%, transparent 50%);
+                radial-gradient(ellipse at top right, rgba(173, 216, 230, 0.15) 0%, transparent 50%);
             pointer-events: none;
             z-index: 1;
         }
 
-        /* Aurores boréales en arrière-plan */
         .aurora {
             position: fixed;
             top: 0;
@@ -88,27 +78,15 @@
             opacity: 0.3;
             z-index: 0;
             pointer-events: none;
-            background: linear-gradient(45deg, 
-                transparent 0%, 
-                rgba(0, 255, 127, 0.1) 25%, 
-                rgba(64, 224, 208, 0.1) 50%, 
-                rgba(138, 43, 226, 0.1) 75%, 
-                transparent 100%);
+            background: linear-gradient(45deg, transparent 0%, rgba(0, 255, 127, 0.1) 25%, rgba(64, 224, 208, 0.1) 50%, rgba(138, 43, 226, 0.1) 75%, transparent 100%);
             animation: auroraMove 20s ease-in-out infinite;
         }
 
         @keyframes auroraMove {
-            0%, 100% {
-                transform: translateX(-10%) skewX(-5deg);
-                opacity: 0.2;
-            }
-            50% {
-                transform: translateX(10%) skewX(5deg);
-                opacity: 0.4;
-            }
+            0%, 100% { transform: translateX(-10%) skewX(-5deg); opacity: 0.2; }
+            50% { transform: translateX(10%) skewX(5deg); opacity: 0.4; }
         }
 
-        /* Étoiles scintillantes */
         .star {
             position: fixed;
             width: 2px;
@@ -126,7 +104,6 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* Effet de lumières de Noël avec glow */
         .christmas-lights {
             position: fixed;
             top: 0;
@@ -155,23 +132,9 @@
             box-shadow: 0 0 20px #44ff44, 0 0 40px #44ff44;
         }
 
-        .light:nth-child(1) { animation-delay: 0s; }
-        .light:nth-child(2) { animation-delay: 0.4s; }
-        .light:nth-child(3) { animation-delay: 0.8s; }
-        .light:nth-child(4) { animation-delay: 1.2s; }
-        .light:nth-child(5) { animation-delay: 1.6s; }
-        .light:nth-child(6) { animation-delay: 2s; }
-        .light:nth-child(7) { animation-delay: 2.4s; }
-
         @keyframes glow {
-            0%, 100% { 
-                opacity: 0.6; 
-                transform: scale(1);
-            }
-            50% { 
-                opacity: 1; 
-                transform: scale(1.2);
-            }
+            0%, 100% { opacity: 0.6; transform: scale(1); }
+            50% { opacity: 1; transform: scale(1.2); }
         }
 
         .container {
@@ -186,27 +149,21 @@
             color: white;
             margin-bottom: 40px;
             animation: fadeInDown 0.8s ease;
-            text-shadow: 0 0 30px rgba(255,255,255,0.8), 0 0 50px rgba(173, 216, 230, 0.6);
+            text-shadow: 0 0 30px rgba(255,255,255,0.8);
         }
 
         header h1 {
             font-size: 3em;
             margin-bottom: 10px;
-            text-shadow: 0 0 20px rgba(255,255,255,0.9), 0 0 40px rgba(173, 216, 230, 0.7);
         }
 
-        header p {
-            font-size: 1.2em;
-            opacity: 0.9;
-        }
-
-        .tabs {
+        .tabs-container {
             display: flex;
             gap: 15px;
             margin-bottom: 30px;
             flex-wrap: wrap;
             justify-content: center;
-            animation: fadeIn 1s ease;
+            align-items: center;
         }
 
         .tab {
@@ -219,96 +176,85 @@
             font-size: 1.1em;
             cursor: pointer;
             transition: all 0.3s ease;
-            position: relative;
             box-shadow: 0 0 20px rgba(173, 216, 230, 0.3);
         }
 
         .tab:hover {
             background: rgba(255, 255, 255, 0.15);
             transform: translateY(-2px);
-            box-shadow: 0 0 30px rgba(173, 216, 230, 0.6), 0 5px 25px rgba(255,215,0,0.4);
         }
 
         .tab.active {
             background: linear-gradient(135deg, #c41e3a 0%, #165b33 100%);
-            color: white;
             font-weight: bold;
-            box-shadow: 0 0 40px rgba(196,30,58,0.8), 0 0 60px rgba(22,91,51,0.6);
-            border-color: rgba(255, 215, 0, 0.8);
+            box-shadow: 0 0 40px rgba(196,30,58,0.8);
         }
 
-        .tab.locked {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .tab.locked::after {
-            content: '🔒';
-            margin-left: 8px;
-        }
-
-        /* Sous-onglets pour les listes de Noël */
-        .sub-tabs {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 30px;
-            justify-content: center;
-            flex-wrap: wrap;
-            animation: fadeIn 1s ease;
-        }
-
-        .sub-tab {
-            background: rgba(196, 30, 58, 0.2);
-            backdrop-filter: blur(10px);
-            border: 2px solid rgba(196, 30, 58, 0.4);
-            padding: 10px 25px;
-            border-radius: 12px;
-            color: white;
-            font-size: 1em;
+        .add-list-btn {
+            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
+            color: #0a1f2e;
+            padding: 15px 30px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.1em;
+            font-weight: bold;
             cursor: pointer;
             transition: all 0.3s ease;
-            box-shadow: 0 0 15px rgba(196, 30, 58, 0.3);
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
         }
 
-        .sub-tab:hover {
-            background: rgba(196, 30, 58, 0.3);
-            transform: translateY(-2px);
-            box-shadow: 0 0 25px rgba(196, 30, 58, 0.5);
-        }
-
-        .sub-tab.active {
-            background: linear-gradient(135deg, #c41e3a 0%, #ff6b6b 100%);
-            font-weight: bold;
-            box-shadow: 0 0 30px rgba(196, 30, 58, 0.7);
-            border-color: rgba(255, 215, 0, 0.6);
+        .add-list-btn:hover {
+            transform: translateY(-2px) scale(1.05);
+            box-shadow: 0 0 50px rgba(255, 215, 0, 0.9);
         }
 
         .content {
             background: rgba(20, 30, 40, 0.95);
             border-radius: 20px;
             padding: 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 40px rgba(173, 216, 230, 0.3);
-            animation: fadeInUp 0.8s ease;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6);
             border: 2px solid rgba(173, 216, 230, 0.4);
         }
 
         .list-header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
         }
 
         .list-header h2 {
             color: #ff6b6b;
             font-size: 2.5em;
-            margin-bottom: 10px;
-            text-shadow: 0 0 25px rgba(255, 107, 107, 0.8), 0 0 50px rgba(255, 107, 107, 0.5);
+            text-shadow: 0 0 25px rgba(255, 107, 107, 0.8);
+            flex: 1;
         }
 
         .list-header .total {
             font-size: 1.5em;
             color: #4ecdc4;
             font-weight: bold;
-            text-shadow: 0 0 20px rgba(78, 205, 196, 0.8);
+        }
+
+        .add-item-btn {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a6a0 100%);
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.6);
+        }
+
+        .add-item-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 40px rgba(78, 205, 196, 0.9);
         }
 
         .items-grid {
@@ -325,10 +271,7 @@
             transition: all 0.3s ease;
             border: 2px solid rgba(173, 216, 230, 0.3);
             position: relative;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.4), 0 0 20px rgba(173, 216, 230, 0.2);
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.4);
         }
 
         .item-card::before {
@@ -338,77 +281,14 @@
             left: 0;
             right: 0;
             height: 5px;
-            background: linear-gradient(90deg, 
-                #c41e3a 0%, 
-                #ff6b6b 10%,
-                #ffd700 20%, 
-                #ffed4e 30%,
-                #165b33 40%, 
-                #4ecdc4 50%,
-                #165b33 60%,
-                #ffed4e 70%,
-                #ffd700 80%,
-                #ff6b6b 90%,
-                #c41e3a 100%);
-            background-size: 300% 100%;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.4);
-            animation: colorSlide 8s ease-in-out infinite;
-        }
-
-        @keyframes colorSlide {
-            0% {
-                background-position: 0% 0%;
-            }
-            50% {
-                background-position: 100% 0%;
-            }
-            100% {
-                background-position: 0% 0%;
-            }
-        }
-
-        .item-card::after {
-            content: '❄️';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5em;
-            opacity: 0.3;
-            filter: drop-shadow(0 0 5px rgba(173, 216, 230, 0.8));
+            background: linear-gradient(90deg, #c41e3a 0%, #ffd700 50%, #165b33 100%);
+            border-radius: 15px 15px 0 0;
         }
 
         .item-card:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 30px rgba(196,30,58,0.5), 0 0 40px rgba(173, 216, 230, 0.6);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(196,30,58,0.5);
             border-color: #ffd700;
-        }
-
-        .item-card.optional {
-            opacity: 1;
-            border: 2px dashed rgba(255, 215, 0, 0.6);
-        }
-
-        .item-card.optional::after {
-            content: '✨ Optionnel';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #ffffff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75em;
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(255,215,0,0.8);
-        }
-
-        .item-card.electronics {
-            background: rgba(20, 60, 40, 0.9);
-            border: 2px solid rgba(22, 91, 51, 0.6);
-        }
-
-        .item-card.electronics::after {
-            content: '🎄';
         }
 
         .item-name {
@@ -416,8 +296,6 @@
             font-weight: bold;
             color: #e0e0e0;
             margin-bottom: 15px;
-            line-height: 1.4;
-            text-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
         }
 
         .item-price {
@@ -425,30 +303,6 @@
             color: #ff6b6b;
             font-weight: bold;
             margin-bottom: 15px;
-            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
-        }
-
-        .item-bottom {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .item-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid rgba(173, 216, 230, 0.3);
-            transition: all 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .item-card:hover .item-image {
-            transform: scale(1.05);
-            border-color: #ffd700;
-            box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
         }
 
         .item-link {
@@ -460,105 +314,145 @@
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(196,30,58,0.6), 0 4px 15px rgba(196,30,58,0.4);
-            flex-grow: 1;
-            text-align: center;
+            margin-top: 10px;
         }
 
         .item-link:hover {
             transform: scale(1.05);
-            box-shadow: 0 0 40px rgba(196,30,58,0.9), 0 6px 25px rgba(255,215,0,0.5);
-            background: linear-gradient(135deg, #d4243d 0%, #a00000 100%);
+            box-shadow: 0 0 40px rgba(196,30,58,0.9);
         }
 
-        .item-note {
-            display: block;
-            margin-top: 10px;
-            color: #4ecdc4;
-            font-style: italic;
-            font-size: 0.95em;
-            text-shadow: 0 0 10px rgba(78, 205, 196, 0.5);
-        }
-
-        .coming-soon {
-            text-align: center;
-            padding: 60px 20px;
-            color: #888;
-        }
-
-        .coming-soon h3 {
-            font-size: 2em;
-            margin-bottom: 20px;
-            color: #ff6b6b;
-            text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
-        }
-
-        .coming-soon p {
+        .delete-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 0, 0, 0.8);
+            color: white;
+            border: none;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            cursor: pointer;
             font-size: 1.2em;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
         }
 
-        .locked-icon {
-            font-size: 4em;
+        .delete-btn:hover {
+            background: rgba(255, 0, 0, 1);
+            transform: scale(1.1);
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 10000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal.active {
+            display: flex;
+        }
+
+        .modal-content {
+            background: rgba(20, 30, 40, 0.98);
+            padding: 40px;
+            border-radius: 20px;
+            width: 90%;
+            max-width: 500px;
+            border: 2px solid rgba(173, 216, 230, 0.5);
+            box-shadow: 0 0 50px rgba(173, 216, 230, 0.5);
+        }
+
+        .modal-content h3 {
+            color: #ff6b6b;
+            font-size: 2em;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .form-group {
             margin-bottom: 20px;
-            filter: drop-shadow(0 0 10px rgba(173, 216, 230, 0.5));
+        }
+
+        .form-group label {
+            display: block;
+            color: #4ecdc4;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px;
+            border-radius: 10px;
+            border: 2px solid rgba(173, 216, 230, 0.3);
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            font-size: 1em;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #4ecdc4;
+            box-shadow: 0 0 20px rgba(78, 205, 196, 0.5);
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 15px;
+            border-radius: 15px;
+            border: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-confirm {
+            background: linear-gradient(135deg, #4ecdc4 0%, #44a6a0 100%);
+            color: white;
+        }
+
+        .btn-confirm:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(78, 205, 196, 0.8);
+        }
+
+        .btn-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+        }
+
+        .btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
 
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-            to {
-                opacity: 1;
-            }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2em;
-            }
-
-            .content {
-                padding: 20px;
-            }
-
-            .items-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .list-header h2 {
-                font-size: 1.8em;
-            }
-
-            .item-bottom {
-                flex-direction: column-reverse;
-            }
-
-            .item-image {
-                width: 100%;
-                height: 150px;
-            }
+            header h1 { font-size: 2em; }
+            .content { padding: 20px; }
+            .items-grid { grid-template-columns: 1fr; }
+            .list-header { flex-direction: column; text-align: center; }
+            .list-header h2 { font-size: 1.8em; }
         }
 
         .page {
@@ -566,14 +460,6 @@
         }
 
         .page.active {
-            display: block;
-        }
-
-        .sub-page {
-            display: none;
-        }
-
-        .sub-page.active {
             display: block;
         }
     </style>
@@ -594,184 +480,205 @@
     <div class="container">
         <header>
             <h1>🎄 Noël 🎁</h1>
-            <p>Choisissez une liste pour découvrir mes souhaits</p>
+            <p>Gérez vos listes de cadeaux</p>
         </header>
 
-        <div class="tabs">
-            <div class="tab active" onclick="showPage('noel')">🎄 Liste de Noël</div>
-            <div class="tab locked" onclick="showPage('anniv')">🎂 Liste d'Anniversaire</div>
-            <div class="tab locked" onclick="showPage('autres')">🎈 Autres Occasions</div>
+        <div class="tabs-container" id="tabsContainer">
+            <button class="add-list-btn" onclick="openListModal()">➕ Nouvelle Liste</button>
         </div>
 
-        <div class="content">
-            <div id="noel" class="page active">
-                <div class="sub-tabs">
-                    <div class="sub-tab active" onclick="showSubPage('aronne')">🎅 Liste d'Aronne</div>
-                    <div class="sub-tab" onclick="showSubPage('gianni')">🎁 Liste de Gianni</div>
-                </div>
+        <div class="content" id="contentArea"></div>
+    </div>
 
-                <div id="aronne" class="sub-page active">
-                    <div class="list-header">
-                        <h2>🎄 Liste de Noël d'Aronne 2025</h2>
-                        <div class="total">Total : 374€</div>
-                    </div>
-
-                    <div class="items-grid">
-                        <div class="item-card">
-                            <div class="item-name">Casque Razer Blackshark V2 X</div>
-                            <div class="item-price">41€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="casque.png" alt="Casque Razer" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card">
-                            <div class="item-name">Cable Display Port</div>
-                            <div class="item-price">10€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="cable.png" alt="Cable Display Port" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card">
-                            <div class="item-name">Bras Micro + Micro</div>
-                            <div class="item-price">85€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="micro.png" alt="Bras Micro" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card">
-                            <div class="item-name">Adaptateur Ecran</div>
-                            <div class="item-price">30€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="adaptateur.png" alt="Adaptateur Ecran" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card">
-                            <div class="item-name">Bras d'Ecran Double</div>
-                            <div class="item-price">25€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="bras-ecran.png" alt="Bras Ecran" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card">
-                            <div class="item-name">Clavier</div>
-                            <div class="item-price">60€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="clavier.png" alt="Clavier" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card optional">
-                            <div class="item-name">Touches clavier</div>
-                            <div class="item-price">13€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/Touches-R%C3%A9sistant-Conception-Ergonomique-M%C3%A9canique/dp/B09TK57SZS/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="touches.png" alt="Touches clavier" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card optional">
-                            <div class="item-name">Barrette de RAM</div>
-                            <div class="item-price">110€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/M%C3%A9moire-3200MHz-Wlizedle-PC4-25600-Ordinateur/dp/B0CS2PGTMH/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="ram.png" alt="RAM" class="item-image">
-                            </div>
-                        </div>
-
-                        <div class="item-card electronics">
-                            <div class="item-name">Matos électronique (outils ou composants)</div>
-                            <div class="item-price">???€</div>
-                            <span class="item-note">💡 À voir selon vos envies</span>
-                            <div class="item-bottom">
-                                <img src="electronique.png" alt="Matos électronique" class="item-image" style="margin-top: 15px;">
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div id="gianni" class="sub-page">
-                    <div class="list-header">
-                        <h2>🎄 Liste de Noël de Gianni 2025</h2>
-                        <div class="total">Total : À définir</div>
-                    </div>
-
-                    <div class="items-grid">
-                        <div class="item-card">
-                            <div class="item-name">Lampe logo fortnite</div>
-                            <div class="item-price">25€</div>
-                            <div class="item-bottom">
-                                <a href="https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" class="item-link" target="_blank">🛒 Acheter</a>
-                                <img src="adaptateur.png" alt="Adaptateur Ecran" class="item-image">
-                        </div>
-                    </div>
-                </div>
+    <!-- Modal pour ajouter une liste -->
+    <div id="listModal" class="modal">
+        <div class="modal-content">
+            <h3>🎁 Nouvelle Liste</h3>
+            <div class="form-group">
+                <label>Nom de la liste</label>
+                <input type="text" id="listName" placeholder="Ex: Liste de Marie">
             </div>
-
-            <div id="anniv" class="page">
-                <div class="coming-soon">
-                    <div class="locked-icon">🔒</div>
-                    <h3>Liste d'Anniversaire</h3>
-                    <p>Cette liste sera bientôt disponible !</p>
-                </div>
+            <div class="modal-buttons">
+                <button class="btn-confirm" onclick="addList()">Créer</button>
+                <button class="btn-cancel" onclick="closeListModal()">Annuler</button>
             </div>
+        </div>
+    </div>
 
-            <div id="autres" class="page">
-                <div class="coming-soon">
-                    <div class="locked-icon">🔒</div>
-                    <h3>Autres Occasions</h3>
-                    <p>Cette liste sera bientôt disponible !</p>
-                </div>
+    <!-- Modal pour ajouter un item -->
+    <div id="itemModal" class="modal">
+        <div class="modal-content">
+            <h3>🎁 Nouvel Article</h3>
+            <div class="form-group">
+                <label>Nom de l'article</label>
+                <input type="text" id="itemName" placeholder="Ex: Casque audio">
+            </div>
+            <div class="form-group">
+                <label>Prix (€)</label>
+                <input type="number" id="itemPrice" placeholder="Ex: 50">
+            </div>
+            <div class="form-group">
+                <label>Lien (optionnel)</label>
+                <input type="url" id="itemLink" placeholder="https://...">
+            </div>
+            <div class="modal-buttons">
+                <button class="btn-confirm" onclick="addItem()">Ajouter</button>
+                <button class="btn-cancel" onclick="closeItemModal()">Annuler</button>
             </div>
         </div>
     </div>
 
     <script>
-        function showPage(pageId) {
-            const tab = event.target;
-            if (tab.classList.contains('locked')) {
-                return;
+        let lists = {
+            aronne: {
+                name: "Liste d'Aronne",
+                items: [
+                    { name: "Casque Razer Blackshark V2 X", price: 41, link: "https://www.amazon.fr/Razer-BlackShark-Haut-parleurs-cardio%C3%AFde-Annulation/dp/B089SSFV85/" },
+                    { name: "Cable Display Port", price: 10, link: "https://www.amazon.fr/Silkland-DisplayPort-32-4Gbps-Free-Sync-Graphique/dp/B0BTM4VHC3/" },
+                    { name: "Bras Micro + Micro", price: 85, link: "https://www.amazon.fr/TONOR-Micro-Microphone-Broadcasting-Enregistrement/dp/B0DWMCW47S" },
+                    { name: "Adaptateur Ecran", price: 30, link: "https://www.amazon.fr/3IDEE-Adaptateur-Compatible-%C3%A9cran-Koorui/dp/B0CJ9HV26B/" },
+                    { name: "Bras d'Ecran Double", price: 25, link: "https://www.amazon.fr/Amazon-Basics-Support-r%C3%A9glable-accueillir/dp/B0CQTPZNV8/" },
+                    { name: "Clavier", price: 60, link: "https://www.amazon.fr/G-Lab-Performance-Personnalisable-Anti-Ghosting-Repose-Poignet/dp/B07DJ97LNW/" }
+                ]
+            },
+            gianni: {
+                name: "Liste de Gianni",
+                items: [
+                    { name: "Lampe logo fortnite", price: 25, link: "https://www.amazon.fr/exemple" }
+                ]
             }
+        };
 
-            document.querySelectorAll('.page').forEach(page => {
-                page.classList.remove('active');
-            });
+        let currentList = 'aronne';
 
-            document.querySelectorAll('.tab').forEach(t => {
-                t.classList.remove('active');
-            });
+        async function loadData() {
+            try {
+                const result = await window.storage.get('christmas_lists');
+                if (result && result.value) {
+                    lists = JSON.parse(result.value);
+                }
+            } catch (error) {
+                console.log('Première utilisation ou données non trouvées');
+            }
+            renderTabs();
+            renderList();
+        }
 
-            document.getElementById(pageId).classList.add('active');
-            tab.classList.add('active');
-
-            if (pageId === 'noel') {
-                document.getElementById('aronne').classList.add('active');
-                document.querySelectorAll('.sub-tab').forEach(st => st.classList.remove('active'));
-                document.querySelectorAll('.sub-tab')[0].classList.add('active');
+        async function saveData() {
+            try {
+                await window.storage.set('christmas_lists', JSON.stringify(lists));
+            } catch (error) {
+                console.error('Erreur de sauvegarde:', error);
             }
         }
 
-        function showSubPage(subPageId) {
-            document.querySelectorAll('.sub-page').forEach(page => {
-                page.classList.remove('active');
+        function renderTabs() {
+            const container = document.getElementById('tabsContainer');
+            const addBtn = container.querySelector('.add-list-btn');
+            container.innerHTML = '';
+            
+            Object.keys(lists).forEach(id => {
+                const tab = document.createElement('div');
+                tab.className = 'tab' + (id === currentList ? ' active' : '');
+                tab.textContent = lists[id].name;
+                tab.onclick = () => {
+                    currentList = id;
+                    renderTabs();
+                    renderList();
+                };
+                container.appendChild(tab);
             });
+            
+            container.appendChild(addBtn);
+        }
 
-            document.querySelectorAll('.sub-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
+        function renderList() {
+            const list = lists[currentList];
+            const total = list.items.reduce((sum, item) => sum + item.price, 0);
+            
+            const html = `
+                <div class="page active">
+                    <div class="list-header">
+                        <h2>🎄 ${list.name}</h2>
+                        <div class="total">Total : ${total}€</div>
+                        <button class="add-item-btn" onclick="openItemModal()">➕ Ajouter un article</button>
+                    </div>
+                    <div class="items-grid">
+                        ${list.items.map((item, index) => `
+                            <div class="item-card">
+                                <button class="delete-btn" onclick="deleteItem(${index})">×</button>
+                                <div class="item-name">${item.name}</div>
+                                <div class="item-price">${item.price}€</div>
+                                ${item.link ? `<a href="${item.link}" class="item-link" target="_blank">🛒 Acheter</a>` : ''}
+                            </div>
+                        `).join('')}
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('contentArea').innerHTML = html;
+        }
 
-            document.getElementById(subPageId).classList.add('active');
-            event.target.classList.add('active');
+        function openListModal() {
+            document.getElementById('listModal').classList.add('active');
+            document.getElementById('listName').value = '';
+        }
+
+        function closeListModal() {
+            document.getElementById('listModal').classList.remove('active');
+        }
+
+        function addList() {
+            const name = document.getElementById('listName').value.trim();
+            if (!name) {
+                alert('Veuillez entrer un nom de liste');
+                return;
+            }
+            
+            const id = 'list_' + Date.now();
+            lists[id] = { name, items: [] };
+            currentList = id;
+            
+            saveData();
+            closeListModal();
+            renderTabs();
+            renderList();
+        }
+
+        function openItemModal() {
+            document.getElementById('itemModal').classList.add('active');
+            document.getElementById('itemName').value = '';
+            document.getElementById('itemPrice').value = '';
+            document.getElementById('itemLink').value = '';
+        }
+
+        function closeItemModal() {
+            document.getElementById('itemModal').classList.remove('active');
+        }
+
+        function addItem() {
+            const name = document.getElementById('itemName').value.trim();
+            const price = parseFloat(document.getElementById('itemPrice').value);
+            const link = document.getElementById('itemLink').value.trim();
+            
+            if (!name || !price) {
+                alert('Veuillez remplir le nom et le prix');
+                return;
+            }
+            
+            lists[currentList].items.push({ name, price, link });
+            
+            saveData();
+            closeItemModal();
+            renderList();
+        }
+
+        function deleteItem(index) {
+            if (confirm('Supprimer cet article ?')) {
+                lists[currentList].items.splice(index, 1);
+                saveData();
+                renderList();
+            }
         }
 
         function createSnowflake() {
@@ -785,17 +692,13 @@
             snowflake.style.fontSize = Math.random() * 10 + 10 + 'px';
             
             document.body.appendChild(snowflake);
-
-            setTimeout(() => {
-                snowflake.remove();
-            }, duration * 1000);
+            setTimeout(() => snowflake.remove(), duration * 1000);
         }
 
         setInterval(createSnowflake, 150);
 
         function createStars() {
-            const count = 50;
-            for (let i = 0; i < count; i++) {
+            for (let i = 0; i < 50; i++) {
                 const star = document.createElement('div');
                 star.classList.add('star');
                 star.style.left = Math.random() * 100 + '%';
@@ -827,10 +730,8 @@
             document.querySelectorAll('.icicle').forEach(el => el.remove());
             createIcicles();
         });
+
+        loadData();
     </script>
 </body>
 </html>
-
-
-
-

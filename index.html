@@ -801,12 +801,80 @@
         </div>
     </div>
 
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-database-compat.js"></script>
+
     <script>
-        // Chargement des états d'achat depuis le stockage cloud
+        // Configuration Firebase (À REMPLACER avec vos propres identifiants)
+        const firebaseConfig = {
+            apiKey: "VOTRE_API_KEY",
+            authDomain: "VOTRE_PROJECT_ID.firebaseapp.com",
+            databaseURL: "https://VOTRE_PROJECT_ID-default-rtdb.firebaseio.com",
+            projectId: "VOTRE_PROJECT_ID",
+            storageBucket: "VOTRE_PROJECT_ID.appspot.com",
+            messagingSenderId: "VOTRE_SENDER_ID",
+            appId: "VOTRE_APP_ID"
+        };
+
+        // Initialisation Firebase
+        let database;
+        let isFirebaseConfigured = false;
+
+        try {
+            // Vérifier si Firebase est configuré avec de vraies valeurs
+            if (firebaseConfig.apiKey !== "VOTRE_API_KEY") {
+                firebase.initializeApp(firebaseConfig);
+                database = firebase.database();
+                isFirebaseConfigured = true;
+                console.log('✅ Firebase connecté');
+            } else {
+                console.warn('⚠️ Firebase non configuré - utilisation du localStorage local');
+            }
+        } catch (error) {
+            console.error('❌ Erreur Firebase:', error);
+        }
+
+        // Chargement des états d'achat
         async function loadPurchasedItems() {
-            try {
-                const result = await window.storage.get('christmas-purchased-items', true);
-                const purchased = result ? JSON.parse(result.value) : {};
+            if (isFirebaseConfigured) {
+                // Charger depuis Firebase (synchronisé entre appareils)
+                try {
+                    const snapshot = await database.ref('purchased-items').once('value');
+                    const purchased = snapshot.val() || {};
+                    
+                    document.querySelectorAll('.item-card').forEach(card => {
+                        const itemId = card.dataset.itemId;
+                        const checkbox = card.querySelector('.purchased-checkbox');
+                        
+                        if (purchased[itemId]) {
+                            card.classList.add('purchased');
+                            if (checkbox) checkbox.checked = true;
+                        }
+                    });
+                    
+                    // Écouter les changements en temps réel
+                    database.ref('purchased-items').on('value', (snapshot) => {
+                        const purchased = snapshot.val() || {};
+                        document.querySelectorAll('.item-card').forEach(card => {
+                            const itemId = card.dataset.itemId;
+                            const checkbox = card.querySelector('.purchased-checkbox');
+                            
+                            if (purchased[itemId]) {
+                                card.classList.add('purchased');
+                                if (checkbox) checkbox.checked = true;
+                            } else {
+                                card.classList.remove('purchased');
+                                if (checkbox) checkbox.checked = false;
+                            }
+                        });
+                    });
+                } catch (error) {
+                    console.error('Erreur de chargement Firebase:', error);
+                }
+            } else {
+                // Fallback: localStorage (local uniquement)
+                const purchased = JSON.parse(localStorage.getItem('purchasedItems') || '{}');
                 
                 document.querySelectorAll('.item-card').forEach(card => {
                     const itemId = card.dataset.itemId;
@@ -817,12 +885,10 @@
                         if (checkbox) checkbox.checked = true;
                     }
                 });
-            } catch (error) {
-                console.log('Aucune donnée sauvegardée trouvée, démarrage avec une liste vide');
             }
         }
 
-        // Sauvegarde de l'état d'achat dans le cloud
+        // Sauvegarde de l'état d'achat
         async function savePurchasedItems() {
             const purchased = {};
             
@@ -833,11 +899,18 @@
                 }
             });
             
-            try {
-                await window.storage.set('christmas-purchased-items', JSON.stringify(purchased), true);
-                console.log('✅ Sauvegarde synchronisée sur tous les appareils');
-            } catch (error) {
-                console.error('❌ Erreur de sauvegarde:', error);
+            if (isFirebaseConfigured) {
+                // Sauvegarder dans Firebase (synchronisé)
+                try {
+                    await database.ref('purchased-items').set(purchased);
+                    console.log('✅ Sauvegarde synchronisée sur tous les appareils');
+                } catch (error) {
+                    console.error('❌ Erreur de sauvegarde Firebase:', error);
+                }
+            } else {
+                // Fallback: localStorage (local uniquement)
+                localStorage.setItem('purchasedItems', JSON.stringify(purchased));
+                console.log('💾 Sauvegarde locale uniquement (configurez Firebase pour synchroniser)');
             }
         }
 

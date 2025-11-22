@@ -352,16 +352,47 @@
         }
 
         /* Checkbox pour marquer comme acheté */
+        .purchase-wrapper {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 15px;
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 8px;
+            border: 1px solid rgba(173, 216, 230, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .purchase-wrapper:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(173, 216, 230, 0.4);
+        }
+
         .purchased-checkbox {
-            position: absolute;
-            top: 15px;
-            left: 15px;
-            width: 30px;
-            height: 30px;
+            width: 18px;
+            height: 18px;
             cursor: pointer;
-            z-index: 5;
             accent-color: #4CAF50;
-            transform: scale(1.5);
+            flex-shrink: 0;
+        }
+
+        .purchase-label {
+            font-size: 0.85em;
+            color: #b0b0b0;
+            cursor: pointer;
+            user-select: none;
+            font-weight: 500;
+        }
+
+        .purchase-label::before {
+            content: "J'ai déjà acheté ce cadeau";
+            margin-right: 8px;
+        }
+
+        .item-card.purchased .purchase-label {
+            color: #4CAF50;
+            font-weight: 600;
         }
 
         .item-card::before {
@@ -427,7 +458,6 @@
             margin-bottom: 15px;
             line-height: 1.4;
             text-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
-            padding-left: 45px;
         }
 
         .item-price {
@@ -628,7 +658,10 @@
 
                     <div class="items-grid">
                         <div class="item-card" data-item-id="aronne-1">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-1-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-1-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Casque Razer Blackshark V2 X</div>
                             <div class="item-price">41€</div>
                             <div class="item-bottom">
@@ -638,7 +671,10 @@
                         </div>
 
                         <div class="item-card" data-item-id="aronne-2">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-2-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-2-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Cable Display Port</div>
                             <div class="item-price">10€</div>
                             <div class="item-bottom">
@@ -648,7 +684,10 @@
                         </div>
 
                         <div class="item-card" data-item-id="aronne-3">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-3-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-3-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Bras Micro + Micro</div>
                             <div class="item-price">85€</div>
                             <div class="item-bottom">
@@ -658,7 +697,10 @@
                         </div>
 
                         <div class="item-card" data-item-id="aronne-4">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-4-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-4-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Adaptateur Ecran</div>
                             <div class="item-price">30€</div>
                             <div class="item-bottom">
@@ -668,7 +710,10 @@
                         </div>
 
                         <div class="item-card" data-item-id="aronne-5">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-5-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-5-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Bras d'Ecran Double</div>
                             <div class="item-price">25€</div>
                             <div class="item-bottom">
@@ -678,7 +723,10 @@
                         </div>
 
                         <div class="item-card" data-item-id="aronne-6">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-6-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-6-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Clavier</div>
                             <div class="item-price">60€</div>
                             <div class="item-bottom">
@@ -688,7 +736,10 @@
                         </div>
 
                         <div class="item-card optional" data-item-id="aronne-7">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-7-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-7-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Touches clavier</div>
                             <div class="item-price">13€</div>
                             <div class="item-bottom">
@@ -698,7 +749,10 @@
                         </div>
 
                         <div class="item-card optional" data-item-id="aronne-8">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-8-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-8-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Barrette de RAM</div>
                             <div class="item-price">110€</div>
                             <div class="item-bottom">
@@ -708,7 +762,10 @@
                         </div>
 
                         <div class="item-card electronics" data-item-id="aronne-9">
-                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
+                            <div class="purchase-wrapper">
+                                <label for="aronne-9-check" class="purchase-label"></label>
+                                <input type="checkbox" class="purchased-checkbox" id="aronne-9-check" onchange="togglePurchased(this)">
+                            </div>
                             <div class="item-name">Argent pour matos électronique (outils ou composants)</div>
                             <div class="item-price">???€</div>
                             <span class="item-note">💡 À voir selon vos envies 😀</span>
@@ -1023,4 +1080,3 @@
     </script>
 </body>
 </html>
-

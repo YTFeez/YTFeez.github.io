@@ -20,7 +20,6 @@
             overflow-x: hidden;
         }
 
-        /* Effet de flocons qui tombent */
         .snowflake {
             position: fixed;
             top: -10px;
@@ -41,7 +40,6 @@
             }
         }
 
-        /* Icicles (stalactites de glace) */
         .icicle {
             position: fixed;
             top: 0;
@@ -61,7 +59,6 @@
             50% { filter: drop-shadow(0 0 20px rgba(173, 216, 230, 1)); }
         }
 
-        /* Effet de givre sur les bords */
         body::before {
             content: '';
             position: fixed;
@@ -78,7 +75,6 @@
             z-index: 1;
         }
 
-        /* Aurores boréales en arrière-plan */
         .aurora {
             position: fixed;
             top: 0;
@@ -108,7 +104,6 @@
             }
         }
 
-        /* Étoiles scintillantes */
         .star {
             position: fixed;
             width: 2px;
@@ -126,7 +121,6 @@
             50% { opacity: 1; transform: scale(1.5); }
         }
 
-        /* Effet de lumières de Noël avec glow */
         .christmas-lights {
             position: fixed;
             top: 0;
@@ -247,7 +241,6 @@
             margin-left: 8px;
         }
 
-        /* Sous-onglets pour les listes de Noël */
         .sub-tabs {
             display: flex;
             gap: 10px;
@@ -331,6 +324,46 @@
             flex-direction: column;
         }
 
+        /* Style pour les cartes achetées */
+        .item-card.purchased {
+            opacity: 0.6;
+            background: rgba(20, 30, 40, 0.9);
+            filter: grayscale(0.7);
+        }
+
+        .item-card.purchased .item-link {
+            pointer-events: none;
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .item-card.purchased::after {
+            content: '✓ ACHETÉ';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(-15deg);
+            font-size: 2em;
+            font-weight: bold;
+            color: rgba(76, 175, 80, 0.8);
+            text-shadow: 0 0 20px rgba(76, 175, 80, 1);
+            z-index: 10;
+            pointer-events: none;
+        }
+
+        /* Checkbox pour marquer comme acheté */
+        .purchased-checkbox {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            width: 30px;
+            height: 30px;
+            cursor: pointer;
+            z-index: 5;
+            accent-color: #4CAF50;
+            transform: scale(1.5);
+        }
+
         .item-card::before {
             content: '';
             position: absolute;
@@ -367,20 +400,14 @@
             }
         }
 
-        .item-card::after {
-            content: '❄️';
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            font-size: 1.5em;
-            opacity: 0.3;
-            filter: drop-shadow(0 0 5px rgba(173, 216, 230, 0.8));
-        }
-
         .item-card:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 10px 30px rgba(196,30,58,0.5), 0 0 40px rgba(173, 216, 230, 0.6);
             border-color: #ffd700;
+        }
+
+        .item-card.purchased:hover {
+            transform: translateY(-2px) scale(1.01);
         }
 
         .item-card.optional {
@@ -388,27 +415,9 @@
             border: 2px dashed rgba(255, 215, 0, 0.6);
         }
 
-        .item-card.optional::after {
-            content: '✨ Optionnel';
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: linear-gradient(135deg, #ffd700 0%, #ffed4e 100%);
-            color: #ffffff;
-            padding: 5px 12px;
-            border-radius: 20px;
-            font-size: 0.75em;
-            font-weight: bold;
-            box-shadow: 0 0 20px rgba(255,215,0,0.8);
-        }
-
         .item-card.electronics {
             background: rgba(20, 60, 40, 0.9);
             border: 2px solid rgba(22, 91, 51, 0.6);
-        }
-
-        .item-card.electronics::after {
-            content: '🎄';
         }
 
         .item-name {
@@ -418,6 +427,7 @@
             margin-bottom: 15px;
             line-height: 1.4;
             text-shadow: 0 0 10px rgba(224, 224, 224, 0.3);
+            padding-left: 45px;
         }
 
         .item-price {
@@ -617,7 +627,8 @@
                     </div>
 
                     <div class="items-grid">
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="aronne-1">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Casque Razer Blackshark V2 X</div>
                             <div class="item-price">41€</div>
                             <div class="item-bottom">
@@ -626,7 +637,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="aronne-2">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Cable Display Port</div>
                             <div class="item-price">10€</div>
                             <div class="item-bottom">
@@ -635,7 +647,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="aronne-3">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Bras Micro + Micro</div>
                             <div class="item-price">85€</div>
                             <div class="item-bottom">
@@ -644,7 +657,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="aronne-4">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Adaptateur Ecran</div>
                             <div class="item-price">30€</div>
                             <div class="item-bottom">
@@ -653,7 +667,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="aronne-5">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Bras d'Ecran Double</div>
                             <div class="item-price">25€</div>
                             <div class="item-bottom">
@@ -662,7 +677,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="aronne-6">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Clavier</div>
                             <div class="item-price">60€</div>
                             <div class="item-bottom">
@@ -671,7 +687,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card optional">
+                        <div class="item-card optional" data-item-id="aronne-7">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Touches clavier</div>
                             <div class="item-price">13€</div>
                             <div class="item-bottom">
@@ -680,7 +697,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card optional">
+                        <div class="item-card optional" data-item-id="aronne-8">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Barrette de RAM</div>
                             <div class="item-price">110€</div>
                             <div class="item-bottom">
@@ -689,7 +707,8 @@
                             </div>
                         </div>
 
-                        <div class="item-card electronics">
+                        <div class="item-card electronics" data-item-id="aronne-9">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Argent pour matos électronique (outils ou composants)</div>
                             <div class="item-price">???€</div>
                             <span class="item-note">💡 À voir selon vos envies 😀</span>
@@ -707,22 +726,25 @@
                     </div>
 
                     <div class="items-grid">
-                        <div class="item-card">
+                        <div class="item-card purchased" data-item-id="gianni-1">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)" checked>
                             <div class="item-name">Lampe Fortnite [Achetée]</div>
                             <div class="item-price">25€</div>
                             <div class="item-bottom">
                                 <img src="Lampe_Fortnite.png" alt="Lampe_Fortnite.png" class="item-image">
                             </div>
                         </div>
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="gianni-2">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Casier de rangement</div>
                             <div class="item-price">30€</div>
                             <div class="item-bottom">
-                                <a href="https://www.amazon.fr/Numskull-Official-Fortnite-Controller-Nintendo/dp/B0DGQTJY3B/ref=sr_1_7?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=32JXHM680B0TA&dib=eyJ2IjoiMSJ9.rw-yCbH8hM92Vff5TqQg-vJsLuje0tO1z9RcSSJmDr0-NYx8zNVpyWp4cypXOJTVycVnQFPh1vr8csZPdiRZlLOmmzzpWprbJKjxljXtFiOk0bYAqUK4bocbXh0oP8jzQ-6Okpy7Z3fnXpGbY4gUs68FLXVtwJDxxwNCzQNThqwbtKxN94oJQ8ksq1Q6GAh_EoRk9sqJ9D70cQjtHYiRksp6tpTaAxZIlh3XtRQ332nRjsoe7vTcQUocjM0ffS8h3l4XXL4y_fl2NUiR1SY-M-7JjP3hlj60h0X0_w8YeAE.PmXFWMSYHjY1FJueLEZBQk1VAAgmjgFp32IPNpYKpO8&dib_tag=se&keywords=porte%2Bmanette%2Bfortnite&qid=1762713617&sprefix=porte%2Bmanette%2Bfortnite%2Caps%2C81&sr=8-7&th=1" class="item-link" target="_blank">🛒 Acheter</a>
+                                <a href="https://www.amazon.fr/Numskull-Official-Fortnite-Controller-Nintendo/dp/B0DGQTJY3B/ref=sr_1_7?__mk_fr_FR=%C3%85M%C3%85%C5%BD%C3%95%C3%91&crid=32JXHM680B0TA&dib=eyJ2IjoiMSJ9.rw-yCbH8hM92Vff5TqQg-vJsLuje0tO1z9RcSSJmDr0-NYx8zNVpyWp4cypXOJTVycVnQFPh1vr8csZPdiRZlLOmmzzpWprbJKjxljXtFiOk0bYAqUK4bocbXh0oP8jzQ-6Okpy-Z3fnXpGbY4gUs68FLXVtwJDxxwNCzQNThqwbtKxN94oJQ8ksq1Q6GAh_EoRk9sqJ9D70cQjtHYiRksp6tpTaAxZIlh3XtRQ332nRjsoe7vTcQUocjM0ffS8h3l4XXL4y_fl2NUiR1SY-M-7JjP3hlj60h0X0_w8YeAE.PmXFWMSYHjY1FJueLEZBQk1VAAgmjgFp32IPNpYKpO8&dib_tag=se&keywords=porte%2Bmanette%2Bfortnite&qid=1762713617&sprefix=porte%2Bmanette%2Bfortnite%2Caps%2C81&sr=8-7&th=1" class="item-link" target="_blank">🛒 Acheter</a>
                                 <img src="casier.png" alt="casier.png" class="item-image">
                             </div>
                         </div>
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="gianni-3">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Pioche Fortnite</div>
                             <div class="item-price">30€</div>
                             <div class="item-bottom">
@@ -730,7 +752,8 @@
                                 <img src="pioche.png" alt="pioche.png" class="item-image">
                             </div>
                         </div>
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="gianni-4">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Lego lama</div>
                             <div class="item-price">28€</div>
                             <div class="item-bottom">
@@ -738,7 +761,8 @@
                                 <img src="lego.png" alt="lego.png" class="item-image">
                             </div>
                         </div>
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="gianni-5">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">kit led</div>
                             <div class="item-price">28€</div>
                             <div class="item-bottom">
@@ -746,7 +770,8 @@
                                 <img src="led.png" alt="led.png" class="item-image">
                             </div>
                         </div>
-                        <div class="item-card">
+                        <div class="item-card" data-item-id="gianni-6">
+                            <input type="checkbox" class="purchased-checkbox" onchange="togglePurchased(this)">
                             <div class="item-name">Classeur</div>
                             <div class="item-price">50€</div>
                             <div class="item-bottom">
@@ -777,6 +802,35 @@
     </div>
 
     <script>
+        // Gestion de la sauvegarde des états "acheté"
+        function loadPurchasedItems() {
+            const purchased = JSON.parse(localStorage.getItem('purchasedItems') || '{}');
+            Object.keys(purchased).forEach(itemId => {
+                const card = document.querySelector(`[data-item-id="${itemId}"]`);
+                if (card && purchased[itemId]) {
+                    card.classList.add('purchased');
+                    const checkbox = card.querySelector('.purchased-checkbox');
+                    if (checkbox) checkbox.checked = true;
+                }
+            });
+        }
+
+        function togglePurchased(checkbox) {
+            const card = checkbox.closest('.item-card');
+            const itemId = card.getAttribute('data-item-id');
+            const purchased = JSON.parse(localStorage.getItem('purchasedItems') || '{}');
+            
+            if (checkbox.checked) {
+                card.classList.add('purchased');
+                purchased[itemId] = true;
+            } else {
+                card.classList.remove('purchased');
+                delete purchased[itemId];
+            }
+            
+            localStorage.setItem('purchasedItems', JSON.stringify(purchased));
+        }
+
         function showPage(pageId) {
             const tab = event.target;
             if (tab.classList.contains('locked')) {
@@ -867,17 +921,9 @@
             document.querySelectorAll('.icicle').forEach(el => el.remove());
             createIcicles();
         });
+
+        // Charger les états sauvegardés au chargement de la page
+        window.addEventListener('DOMContentLoaded', loadPurchasedItems);
     </script>
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-

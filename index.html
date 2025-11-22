@@ -802,33 +802,56 @@
     </div>
 
     <script>
-        // Gestion de la sauvegarde des états "acheté"
-        function loadPurchasedItems() {
-            const purchased = JSON.parse(localStorage.getItem('purchasedItems') || '{}');
-            Object.keys(purchased).forEach(itemId => {
-                const card = document.querySelector(`[data-item-id="${itemId}"]`);
-                if (card && purchased[itemId]) {
-                    card.classList.add('purchased');
+        // Chargement des états d'achat depuis le stockage cloud
+        async function loadPurchasedItems() {
+            try {
+                const result = await window.storage.get('christmas-purchased-items', true);
+                const purchased = result ? JSON.parse(result.value) : {};
+                
+                document.querySelectorAll('.item-card').forEach(card => {
+                    const itemId = card.dataset.itemId;
                     const checkbox = card.querySelector('.purchased-checkbox');
-                    if (checkbox) checkbox.checked = true;
-                }
-            });
+                    
+                    if (purchased[itemId]) {
+                        card.classList.add('purchased');
+                        if (checkbox) checkbox.checked = true;
+                    }
+                });
+            } catch (error) {
+                console.log('Aucune donnée sauvegardée trouvée, démarrage avec une liste vide');
+            }
         }
 
-        function togglePurchased(checkbox) {
+        // Sauvegarde de l'état d'achat dans le cloud
+        async function savePurchasedItems() {
+            const purchased = {};
+            
+            document.querySelectorAll('.item-card').forEach(card => {
+                const itemId = card.dataset.itemId;
+                if (card.classList.contains('purchased')) {
+                    purchased[itemId] = true;
+                }
+            });
+            
+            try {
+                await window.storage.set('christmas-purchased-items', JSON.stringify(purchased), true);
+                console.log('✅ Sauvegarde synchronisée sur tous les appareils');
+            } catch (error) {
+                console.error('❌ Erreur de sauvegarde:', error);
+            }
+        }
+
+        // Toggle de l'état acheté
+        async function togglePurchased(checkbox) {
             const card = checkbox.closest('.item-card');
-            const itemId = card.getAttribute('data-item-id');
-            const purchased = JSON.parse(localStorage.getItem('purchasedItems') || '{}');
             
             if (checkbox.checked) {
                 card.classList.add('purchased');
-                purchased[itemId] = true;
             } else {
                 card.classList.remove('purchased');
-                delete purchased[itemId];
             }
             
-            localStorage.setItem('purchasedItems', JSON.stringify(purchased));
+            await savePurchasedItems();
         }
 
         function showPage(pageId) {
@@ -922,7 +945,7 @@
             createIcicles();
         });
 
-        // Charger les états sauvegardés au chargement de la page
+        // Charger les états au démarrage
         window.addEventListener('DOMContentLoaded', loadPurchasedItems);
     </script>
 </body>

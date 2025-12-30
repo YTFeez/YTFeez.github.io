@@ -29,6 +29,23 @@
             text-align: center;
             background: rgba(0, 0, 0, 0.2);
             backdrop-filter: blur(10px);
+            position: relative;
+        }
+
+        .header-logo {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            height: 80px;
+            width: 80px;
+            border-radius: 15px;
+            object-fit: cover;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s;
+        }
+
+        .header-logo:hover {
+            transform: scale(1.05);
         }
 
         .logo {
@@ -290,7 +307,11 @@
         }
 
         @media (max-width: 768px) {
-            .logo { font-size: 2.5em; }
+            .logo { 
+                font-size: 2em;
+                flex-wrap: wrap;
+            }
+            .logo-img { height: 80px; }
             .tagline { font-size: 1.2em; }
             .ip-address { font-size: 1.5em; }
             .social-links { flex-direction: column; align-items: center; }
@@ -304,6 +325,7 @@
     <div class="particles" id="particles"></div>
 
     <header>
+        <img src="Infinite.jpg" alt="Infinite SMP" class="header-logo">
         <div class="container">
             <div class="logo">⚔️ INFINITE SMP ⚔️</div>
             <div class="tagline">Le serveur Minecraft francophone ultime</div>
